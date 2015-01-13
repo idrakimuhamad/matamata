@@ -1,0 +1,63 @@
+<template name="create_payment">
+  <div class="create-payment">
+    <h3>Create Payment</h3>
+    <p>
+      PayPal provides various payment related operations using the <code>/payment</code> resource and related sub-resources. Use payment for direct credit card payments and PayPal account payments. You can also use sub-resources to get payment related details.
+    </p>
+    <pre>
+      <code>
+        curl -v https://api.sandbox.paypal.com/v1/payments/payment \
+        -H "Content-Type:application/json" \
+        -H "Authorization: Bearer &lt;Access-Token&gt;" \
+        -d '{
+          "intent":"sale",
+          "payer":{
+            "payment_method":"credit_card",
+            "funding_instruments":[
+              {
+                "credit_card":{
+                  "number":"4417119669820331",
+                  "type":"visa",
+                  "expire_month":11,
+                  "expire_year":2018,
+                  "cvv2":"874",
+                  "first_name":"Betsy",
+                  "last_name":"Buyer",
+                  "billing_address":{
+                    "line1":"111 First Street",
+                    "city":"Saratoga",
+                    "state":"CA",
+                    "postal_code":"95070",
+                    "country_code":"US"
+                  }
+                }
+              }
+            ]
+          },
+          "transactions":[
+            {
+              "amount":{
+                "total":"7.47",
+                "currency":"USD",
+                "details":{
+                  "subtotal":"7.41",
+                  "tax":"0.03",
+                  "shipping":"0.03"
+                }
+              },
+              "description":"This is the payment transaction description."
+            }
+          ]
+        }'
+      </code>
+    </pre>
+    <button class="create button-blue">Create</button>
+    {{#if createPaymentResults}}
+    <section class="response-create-payment mt2">
+      <pre>
+        <code>{{createPaymentResults}}</code>
+      </pre>
+    </section>
+    {{/if}}
+  </div>
+</template>

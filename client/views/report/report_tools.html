@@ -1,0 +1,78 @@
+<template name="report_tools">
+  <div class="tools col sm-col-4">
+    <div class="report-form-container">
+      {{#autoForm collection="Incidents" class="report-settings" id="submitIncidentForm" type="method" meteormethod="submitIncident" validation="submit"}}
+        <label>Incident Location</label>
+        <input type="text" class="block full-width field-light incident-location">
+        {{#if trimmedAddress}}
+        <div class="address-confirmation">
+            <h5>Below are the incident address:</h5>
+            {{#if editingAddress}}
+            <textarea class="manual-address block full-width field-light" rows="3">{{fullAddress}}</textarea>
+            <div class="manual-action py1">
+              <a class="button button-blue manual-accept mr1">Save</a>
+              <a class="button button-gray manual-cancel">Cancel</a>
+            </div>
+            {{else}}
+            <div class="autocomplete-address py1">{{{trimmedAddress}}}</div>
+            <div class="autocomplete-action py1">
+              <a class="button button-blue autocomplete-edit mr1">Edit</a>
+            </div>
+            {{/if}}
+        </div>
+        {{> incidentDateandTime}}
+<!--       {{> afQuickField name='title'}}
+        {{> afQuickField name='author'}}
+        {{> afQuickField name='summary' rows=6}}
+        {{> afQuickField name='copies'}}
+        {{> afQuickField name='lastCheckedOut'}}
+        <div class="form-group{{#if afFieldIsInvalid name='cost'}} has-error{{/if}}">
+          <div class="input-group">
+            <span class="input-group-addon">$</span>
+            {{> afFieldInput name='cost'}}
+            <span class="input-group-addon">/each</span>
+          </div>
+          {{#if afFieldIsInvalid name='cost'}}
+          <span class="help-block">{{afFieldMessage name='cost'}}</span>
+          {{/if}}
+        </div>
+      </fieldset>
+      <button type="submit" class="btn btn-primary">Insert</button> -->
+<!--         <label>Type of Crime</label> -->
+        {{> afQuickField name="type" class="block full-width field-light crime-type"}}
+<!--         <select class="block full-width field-light crime-type">
+          <option value="">Select type</option>
+          <option value="theft">Theft</option>
+          <option value="robbery">Robbery</option>
+          <option value="rape">Rape</option>
+          <option value="murder">Murder</option>
+        </select> -->
+        {{> afQuickField name="description" class="block full-width field-light incident-description" rows=5}}
+<!--         <label>Description</label>
+        <textarea rows="5" ></textarea> -->
+        <label>Snap/Upload Images</label>
+        <input type="file" class="block full-width field-light incident-image">
+        <label class="block full-width mb2">
+          {{> afQuickField name="isAnonymous" type="boolean-checkbox" class="anonymous" }}
+          <small>
+            {{#if anon}}
+            We won't reveal your identity to the public
+            {{else}}
+            We will show your username in this incident report as the submitter
+            {{/if}}
+          </small>
+        </label>
+      <button type="submit" class="button-blue submit"><span class="submit-text">Submit</span></button>
+        <button type="reset" class="button-gray">Cancel</button>
+        {{/if}}
+      {{/autoForm}}
+    </div>
+  </div>
+</template>
+
+<template name="incidentDateandTime">
+  <label>Incident Date</label>
+  <input type="date" name="incident-date" class="block full-width field-light incident-date datepicker">
+  <label>Incident Time</label>
+  <input type="time" name="incident-time" class="block full-width field-light incident-time timepicker">
+</template>
