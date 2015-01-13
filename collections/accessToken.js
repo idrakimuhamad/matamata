@@ -1,1 +1,0 @@
-AccessToken = new Mongo.Collection("accessToken");
